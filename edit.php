@@ -1,12 +1,11 @@
 <?php
-// ============================================
+
 // 1. CONNEXION À LA BASE DE DONNÉES
-// ============================================
+
 include('connect.php');
 
-// ============================================
 // 2. RÉCUPÉRATION ET VALIDATION DE L'ID
-// ============================================
+
 $getData = $_GET;
 
 if (!isset($getData['id']) || !is_numeric($getData['id'])) {
@@ -14,9 +13,9 @@ if (!isset($getData['id']) || !is_numeric($getData['id'])) {
     return;
 }
 
-// ============================================
+
 // 3. RÉCUPÉRATION DE LA FIGURINE EN BASE
-// ============================================
+
 $retrieveFigurineStatement = $mysqlClient->prepare('SELECT nom, faction, description, etat FROM figurines WHERE id = :id');
 $retrieveFigurineStatement->execute([
     'id' => (int)$getData['id'],
@@ -31,19 +30,19 @@ if (!$figurine) {
     return;
 }
 
-// ============================================
 // 5. RÉCUPÉRATION DE LA VALEUR ASSOCIÉE
-// Pour pré-remplir les champs prix si elle existe
-// ============================================
+
 $retrieveValeurStatement = $mysqlClient->prepare('SELECT prix_vente, cote_marche FROM valeur WHERE figurine_id = :id');
 $retrieveValeurStatement->execute([
     'id' => (int)$getData['id'],
 ]);
 $valeur = $retrieveValeurStatement->fetch(PDO::FETCH_ASSOC);
 ?>
+
 <!-- ============================================
      6. AFFICHAGE DU FORMULAIRE PRÉ-REMPLI
      ============================================ -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,10 +61,12 @@ $valeur = $retrieveValeurStatement->fetch(PDO::FETCH_ASSOC);
                         <h1 class="h4 mb-0">Mettre à jour : <?php echo htmlspecialchars($figurine['nom']); ?></h1>
                     </div>
                     <div class="card-body">
+
                         <!-- ============================================
                              FORMULAIRE DE MODIFICATION
                              ============================================
                         -->
+
                         <form action="editpost.php" method="POST">
 
                             <input type="hidden" id="id" name="id" value="<?php echo ($getData['id']); ?>">
@@ -97,6 +98,7 @@ $valeur = $retrieveValeurStatement->fetch(PDO::FETCH_ASSOC);
                                  CHECKBOX + CHAMPS PRIX OPTIONNELS
                                  ============================================
                             -->
+                                 
                             <div class="card bg-light border mb-3">
                                 <div class="card-body">
                                     <div class="mb-3 form-check">

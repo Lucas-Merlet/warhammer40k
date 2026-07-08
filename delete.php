@@ -1,12 +1,12 @@
 <?php
-// ============================================
+
 // 1. CONNEXION À LA BASE DE DONNÉES
-// ============================================
+
 include('connect.php');
 
-// ============================================
+
 // 2. RÉCUPÉRATION ET VALIDATION DE L'ID
-// ============================================
+
 $getData = $_GET;
 
 if (!isset($getData['id']) || !is_numeric($getData['id'])) {
@@ -14,10 +14,9 @@ if (!isset($getData['id']) || !is_numeric($getData['id'])) {
     return;
 }
 
-// ============================================
+
 // 3. RÉCUPÉRATION DE LA FIGURINE
-// Pour afficher son nom dans la confirmation
-// ============================================
+
 $retrieveFigurineStatement = $mysqlClient->prepare('SELECT nom, faction FROM figurines WHERE id = :id');
 $retrieveFigurineStatement->execute([
     'id' => (int)$getData['id'],
@@ -29,9 +28,11 @@ if (!$figurine) {
     return;
 }
 ?>
+
 <!-- ============================================
      4. AFFICHAGE DE LA PAGE DE CONFIRMATION
      ============================================ -->
+
 <!DOCTYPE html>
 <html>
 <head>

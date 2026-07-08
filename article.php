@@ -1,13 +1,13 @@
 <?php
-// ============================================
+
 // 1. CONNEXION
-// ============================================
+
 include('connect.php');
 include('functions.php');
 
-// ============================================
+
 // 2. RÉCUPÉRATION DES FIGURINES + VALEUR
-// ============================================
+
 $sqlQuery = '
     SELECT f.id, f.nom, f.faction, f.description, f.etat, f.date_ajout, v.prix_vente, v.cote_marche
     FROM figurines f
@@ -32,6 +32,7 @@ $figurines = $figurinesStatement->fetchAll();
         <!-- ============================================
              EN-TÊTE AVEC BOUTON AJOUTER
              ============================================ -->
+
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1>Blog Warhammer 40k</h1>
             <a href="add.php" class="btn btn-success">+ Ajouter une figurine</a>
@@ -41,6 +42,7 @@ $figurines = $figurinesStatement->fetchAll();
         <!-- ============================================
              LISTE DES FIGURINES
              ============================================ -->
+
         <div class="row">
             <?php foreach ($figurines as $figurine) : ?>
 
@@ -48,9 +50,9 @@ $figurines = $figurinesStatement->fetchAll();
                     <div class="card mb-4 text-dark">
 
                         <?php
-                        // ============================================
+
                         // GESTION DE L'IMAGE DE LA FIGURINE
-                        // ============================================
+
                         $imageWebp = "img/" . $figurine['id'] . ".webp";
 
                         if (file_exists($imageWebp)) {
@@ -59,8 +61,6 @@ $figurines = $figurinesStatement->fetchAll();
                             $image = "https://picsum.photos/400/250";
                         }
                         ?>
-
-                        <!-- L'image cliquable vers la fiche détail -->
                         <a href="figurine.php?id=<?= $figurine['id']; ?>">
                             <img src="<?= $image; ?>"
                                  class="card-img-top"
@@ -70,8 +70,6 @@ $figurines = $figurinesStatement->fetchAll();
                         </a>
 
                         <div class="card-body">
-
-                            <!-- Le titre cliquable vers la fiche détail -->
                             <h5 class="card-title">
                                 <a href="figurine.php?id=<?= $figurine['id']; ?>" class="text-decoration-none">
                                     <?= htmlspecialchars($figurine['nom']); ?>
@@ -101,6 +99,7 @@ $figurines = $figurinesStatement->fetchAll();
                             <!-- ============================================
                                  BOUTONS D'ACTION AVEC L'ID DANS L'URL
                                  ============================================ -->
+                                 
                             <a href="edit.php?id=<?= $figurine['id']; ?>" class="btn btn-warning btn-sm">Modifier</a>
                             <a href="delete.php?id=<?= $figurine['id']; ?>" class="btn btn-danger btn-sm">Supprimer</a>
 

@@ -1,27 +1,18 @@
 <?php
-// ============================================================
-// PAGE D'AFFICHAGE D'UNE FIGURINE COMPLÈTE - FIGURINE.PHP
-// ============================================================
-// Cette page affiche le détail complet d'une figurine
-// en récupérant son ID depuis l'URL (paramètre GET).
-// ============================================================
 
-// Inclusion de la connexion à la base de données
+// PAGE D'AFFICHAGE D'UNE FIGURINE COMPLÈTE - FIGURINE.PHP
+
 include('connect.php');
 include('functions.php');
 
 
-// ============================================================
 // VÉRIFICATION ET RÉCUPÉRATION DE L'ID DE LA FIGURINE
-// ============================================================
 
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
     $figurineId = $_GET['id'];
 
-    // ============================================================
     // RÉCUPÉRATION DE LA FIGURINE DEPUIS LA BASE DE DONNÉES
-    // ============================================================
 
     $sqlQuery = '
         SELECT f.id, f.nom, f.faction, f.description, f.etat, f.date_ajout,
@@ -55,17 +46,16 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         <div class="container text-center d-flex flex-wrap justify-content-center">
 
         <?php
-        // ============================================================
+
         // AFFICHAGE DE LA FIGURINE
-        // ============================================================
+
 
         if ($figurine) {
 
             echo "<div class='card col-9 m-5 p-3 text-dark'>";
 
-            // ============================================================
             // GESTION DE L'IMAGE DE LA FIGURINE
-            // ============================================================
+
 
             $imagePath = "img/" . $figurine['id'] . ".webp";
 

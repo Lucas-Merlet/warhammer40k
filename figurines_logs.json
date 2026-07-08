@@ -198,5 +198,63 @@
         },
         "ip": "::1",
         "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko\/20100101 Firefox\/152.0"
+    },
+    {
+        "timestamp": "2026-07-08 07:37:26",
+        "action": "update_figurine_start",
+        "data": {
+            "post_data": {
+                "id": "8",
+                "nom": "Skarbrand",
+                "faction": "Demons de Khorne",
+                "description": "Buveur de sang, ce champion de Khorne a eu l'impudence d'attaquer son ma\u00eetre et s'est retrouv\u00e9 banni. Il a essay\u00e9 de r\u00e9cup\u00e9rer ses faveurs.",
+                "etat": "neuf",
+                "modifierValeur": "on",
+                "prix_vente": "430.00",
+                "cote_marche": "480.00"
+            }
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko\/20100101 Firefox\/152.0"
+    },
+    {
+        "timestamp": "2026-07-08 07:37:26",
+        "action": "update_figurine_attempt",
+        "data": {
+            "id": 8,
+            "nom": "Skarbrand",
+            "description_length": 144
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko\/20100101 Firefox\/152.0"
+    },
+    {
+        "timestamp": "2026-07-08 07:37:26",
+        "action": "update_figurine_success",
+        "data": {
+            "id": 8,
+            "rows_affected": 1
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko\/20100101 Firefox\/152.0"
+    },
+    {
+        "timestamp": "2026-07-08 07:37:26",
+        "action": "update_valeur_attempt",
+        "data": {
+            "figurine_id": 8
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko\/20100101 Firefox\/152.0"
+    },
+    {
+        "timestamp": "2026-07-08 07:37:26",
+        "action": "update_valeur_success",
+        "data": {
+            "valeur_id": 8,
+            "rows_affected": 1
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko\/20100101 Firefox\/152.0"
     }
 ]

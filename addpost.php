@@ -1,15 +1,15 @@
 <?php
-// ============================================
+
 // 1. CONNEXION À LA BASE DE DONNÉES
-// ============================================
+
 include('connect.php');
-// ============================================
+
 // 2. RÉCUPÉRATION DES DONNÉES DU FORMULAIRE
-// ============================================
+
 $postData = $_POST;
-// ============================================
+
 // 3. VALIDATION DES DONNÉES
-// ============================================
+
 if (
     empty($postData['nom'])                              // Vérifie si le champ 'nom' existe et n'est pas vide
     || empty($postData['faction'])                       // Vérifie si le champ 'faction' existe et n'est pas vide
@@ -22,16 +22,16 @@ if (
     echo 'Il faut un nom + une faction + une description + un état pour soumettre le formulaire, sinon ça marche pas.';
     return;
 }
-// ============================================
+
 // 4. NETTOYAGE DES DONNÉES (SÉCURITÉ)
-// ============================================
+
 $nom = trim(strip_tags($postData['nom']));
 $faction = trim(strip_tags($postData['faction']));
 $description = trim(strip_tags($postData['description']));
 $etat = trim(strip_tags($postData['etat']));
-// ============================================
+
 // 5. INSERTION EN BASE DE DONNÉES
-// ============================================
+
 $insertcontenu = $mysqlClient->prepare('INSERT INTO figurines(nom, faction, description, etat, en_exposition, vendeur_id, date_ajout) VALUES (:nom, :faction, :description, :etat, :en_exposition, :vendeur_id, :date_ajout)');
 $insertcontenu->execute([
     'nom' => $nom,                     // Remplace :nom par la valeur de $nom
@@ -43,16 +43,11 @@ $insertcontenu->execute([
     'date_ajout' => date('Y-m-d'),     // Génère automatiquement la date du jour au format YYYY-MM-DD
 ]);
 
-// ============================================
-// RÉCUPÉRATION DE L'ID DE LA FIGURINE CRÉÉE
-// IMPORTANT : hors de tout if, juste après l'INSERT
-// car les blocs prix ET image en ont besoin
-// ============================================
 $figurineId = $mysqlClient->lastInsertId();
 
-// ============================================
+
 // 6. INSERTION DU PRIX SI RENSEIGNÉ
-// ============================================
+
 if (!empty($postData['prix_vente']) && !empty($postData['cote_marche'])) {
 
     $insertValeur = $mysqlClient->prepare('INSERT INTO valeur(figurine_id, prix_vente, cote_marche, date_estimation) VALUES (:figurine_id, :prix_vente, :cote_marche, :date_estimation)');
@@ -64,27 +59,16 @@ if (!empty($postData['prix_vente']) && !empty($postData['cote_marche'])) {
     ]);
 }
 
-// ============================================
 // 7. TRAITEMENT DE L'IMAGE UPLOADÉE
-// ============================================
 
-// On vérifie qu'un fichier a été envoyé sans erreur
-// UPLOAD_ERR_OK = code 0 = tout s'est bien passé
 if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
 
-    // ============================================
     // VALIDATION DU FICHIER (SÉCURITÉ)
-    // ============================================
-
-    // 1. Vérification de la taille : max 2 Mo
-    // La taille est en octets : 2 * 1024 * 1024 = 2097152
+    
     if ($_FILES['image']['size'] > 2 * 1024 * 1024) {
         echo 'Image trop lourde : 2 Mo maximum.';
         return;
     }
-
-    // 2. Vérification de l'extension autorisée
-    // pathinfo() extrait l'extension du nom de fichier
     $extension = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
     $extensionsAutorisees = ['webp', 'jpg', 'jpeg', 'png'];
 
@@ -92,29 +76,17 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         echo 'Format non autorisé. Formats acceptés : webp, jpg, jpeg, png.';
         return;
     }
-
-    // 3. Vérification que c'est VRAIMENT une image
-    // getimagesize() retourne false si le fichier n'est pas une image
-    // (protection contre un fichier .php renommé en .jpg)
     if (getimagesize($_FILES['image']['tmp_name']) === false) {
         echo 'Le fichier n\'est pas une image valide.';
         return;
     }
 
-    // ============================================
     // DÉPLACEMENT DU FICHIER VERS img/
-    // ============================================
 
-    // jpeg est renommé en jpg pour matcher le file_exists d'article.php
     if ($extension === 'jpeg') {
         $extension = 'jpg';
     }
-
-    // On nomme le fichier avec l'id de la figurine créée
     $destination = 'img/' . $figurineId . '.' . $extension;
-
-    // move_uploaded_file() déplace le fichier
-    // du dossier temporaire vers notre dossier img/
     move_uploaded_file($_FILES['image']['tmp_name'], $destination);
 }
 ?>

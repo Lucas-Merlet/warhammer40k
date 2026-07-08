@@ -2,7 +2,7 @@
 
 // 1. CONNEXION À LA BASE DE DONNÉES
 
-include('connect.php');
+require_once(__DIR__ . '/connect.php');
 
 
 // 2. RÉCUPÉRATION ET VALIDATION DE L'ID

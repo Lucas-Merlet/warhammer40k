@@ -18,4 +18,18 @@ function libelleEtat($etat)
 
     return $libelles[$etat] ?? $etat;
 }
+function slugify($text)
+{
+    $text = preg_replace('~[^\pL\d]+~u', '-', $text); //remplace tout ce qui n'est pas lettre et chiffre par un tiret
+    $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text); //convertit les accents en lettres simples
+    $text = preg_replace('~[^-\w]+~', '', $text); //supprime les caractères restants indésirables
+    $text = trim($text, '-'); //enlève les tirets en début et fin
+    $text = strtolower($text); //tout en minuscules
+    return empty($text) ? 'n-a' : $text;
+}
+
+function createFigurineUrl($id, $nom)
+{
+    return 'figurine/' . $id . '-' . slugify($nom) . '.html';
+}
 ?>

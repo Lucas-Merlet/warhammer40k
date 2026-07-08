@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule ^figurine/([0-9]+)-([a-zA-Z0-9-]+)\.html$ /warhammer40k/figurine.php?id=$1 [L,QSA]

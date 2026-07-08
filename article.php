@@ -1,44 +1,48 @@
-<?php
-
-// 1. CONNEXION
-
-include('connect.php');
-include('functions.php');
-
-
-// 2. RÉCUPÉRATION DES FIGURINES + VALEUR
-
-$sqlQuery = '
-    SELECT f.id, f.nom, f.faction, f.description, f.etat, f.date_ajout, v.prix_vente, v.cote_marche
-    FROM figurines f
-    LEFT JOIN valeur v ON v.figurine_id = f.id
-    ORDER BY f.date_ajout DESC;';
-$figurinesStatement = $mysqlClient->prepare($sqlQuery);
-$figurinesStatement->execute();
-$figurines = $figurinesStatement->fetchAll();
-
-?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Warhammer 40k</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <?php
+
+    // CHARGEMENT DES ÉLÉMENTS COMMUNS
+
+    require_once(__DIR__ . '/head.php');
+    ?>
+    <title>W40k Shop - Figurines Warhammer 40,000</title>
 </head>
-<body class="bg-dark text-light">
-    <div class="container my-5">
+<body class="bg-light">
+
+    <!-- ============================================
+         EN-TÊTE COMMUN (logo, menu de navigation)
+         ============================================ -->
+
+    <?php require_once(__DIR__ . '/header.php'); ?>
+
+    <div class="container">
+
+        <?php
+
+        // RÉCUPÉRATION DES FIGURINES + VALEUR
+
+        $sqlQuery = '
+            SELECT f.id, f.nom, f.faction, f.description, f.etat, f.date_ajout, v.prix_vente, v.cote_marche
+            FROM figurines f
+            LEFT JOIN valeur v ON v.figurine_id = f.id
+            ORDER BY f.date_ajout DESC;';
+        $figurinesStatement = $mysqlClient->prepare($sqlQuery);
+        $figurinesStatement->execute();
+        $figurines = $figurinesStatement->fetchAll();
+        ?>
 
         <!-- ============================================
-             EN-TÊTE AVEC BOUTON AJOUTER
+             EN-TÊTE DE LA LISTE
              ============================================ -->
 
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>Blog Warhammer 40k</h1>
+            <h1>Nos figurines</h1>
             <a href="add.php" class="btn btn-success">+ Ajouter une figurine</a>
-            <a href="logs.php" class="btn btn-outline-secondary">Logs</a>
         </div>
-        <hr>
+
+        <p class="text-muted mb-4"><?= count($figurines); ?> figurine(s) en vente ou en exposition</p>
 
         <!-- ============================================
              LISTE DES FIGURINES
@@ -48,7 +52,7 @@ $figurines = $figurinesStatement->fetchAll();
             <?php foreach ($figurines as $figurine) : ?>
 
                 <div class="col-md-4">
-                    <div class="card mb-4 text-dark">
+                    <div class="card mb-4">
 
                         <?php
 
@@ -62,7 +66,7 @@ $figurines = $figurinesStatement->fetchAll();
                             $image = "https://picsum.photos/400/250";
                         }
                         ?>
-                        <a href="figurine.php?id=<?= $figurine['id']; ?>">
+                        <a href="<?= createFigurineUrl($figurine['id'], $figurine['nom']); ?>">
                             <img src="<?= $image; ?>"
                                  class="card-img-top"
                                  loading="lazy"
@@ -72,7 +76,7 @@ $figurines = $figurinesStatement->fetchAll();
 
                         <div class="card-body">
                             <h5 class="card-title">
-                                <a href="figurine.php?id=<?= $figurine['id']; ?>" class="text-decoration-none">
+                                <a href="<?= createFigurineUrl($figurine['id'], $figurine['nom']); ?>" class="text-decoration-none">
                                     <?= htmlspecialchars($figurine['nom']); ?>
                                 </a>
                             </h5>
@@ -112,5 +116,12 @@ $figurines = $figurinesStatement->fetchAll();
         </div>
 
     </div>
+
+    <!-- ============================================
+         PIED DE PAGE COMMUN
+         ============================================ -->
+         
+    <?php require_once(__DIR__ . '/footer.php'); ?>
+
 </body>
 </html>

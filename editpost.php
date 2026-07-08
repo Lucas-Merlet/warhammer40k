@@ -4,7 +4,7 @@
 
 
 require_once(__DIR__ . '/connect.php');
-
+requireAdmin();  
 
 class JsonLogger
 {

@@ -3,6 +3,7 @@
 // 1. CONNEXION À LA BASE DE DONNÉES
 
 require_once(__DIR__ . '/connect.php');
+requireAdmin();  
 
 // 2. RÉCUPÉRATION DES DONNÉES DU FORMULAIRE
 

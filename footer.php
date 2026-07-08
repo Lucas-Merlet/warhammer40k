@@ -1,7 +1,7 @@
 <hr>
 <div class="container my-3 p-4 text-center text-muted">
     <p>
-        <?php if (isset($_SESSION['LOGGED_USER'])) : ?>
+        <?php if (isLoggedIn()) : ?>
             <a href="?action=logout">Déconnexion</a> |
         <?php endif; ?>
         W40k Shop 2026® | Dans les ténèbres d'un lointain futur, il n'y a que la guerre

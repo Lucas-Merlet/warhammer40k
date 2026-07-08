@@ -32,4 +32,55 @@ function createFigurineUrl($id, $nom)
 {
     return 'figurine/' . $id . '-' . slugify($nom) . '.html';
 }
+
+// SYSTÈME DE RÔLES
+
+// L'utilisateur est-il connecté (client OU admin) ?
+function isLoggedIn(): bool
+{
+    return isset($_SESSION['LOGGED_USER']);
+}
+
+// L'utilisateur est-il administrateur ?
+function isAdmin(): bool
+{
+    return isset($_SESSION['LOGGED_USER'])
+        && $_SESSION['LOGGED_USER']['role'] === 'admin';
+}
+
+// Protège une page réservée aux admins :
+// si pas admin → redirection vers l'accueil
+function requireAdmin(): void
+{
+    if (!isAdmin()) {
+        header('Location: article.php');
+        exit;
+    }
+}
+
+// DÉCONNEXION
+
+if (isset($_GET['action']) && $_GET['action'] === 'logout') {
+    session_unset();
+    session_destroy();
+    header('Location: article.php');
+    exit;
+}
+
+// Fonction couleurFaction : retourne la couleur d'une faction
+
+function couleurFaction($faction)
+{
+    $couleurs = [
+        'Ultramarines'   => '#0F3D7C',   // bleu ultramar
+        'Blood Angels'   => '#8A0303',   // rouge sang
+        'Death Guard'    => '#4A5D23',   // vert putride
+        'Thousand Sons'  => '#0D4F8B',   // bleu et or de Tzeentch
+        'Orks'           => '#3D6B1F',   // vert peau d'ork
+        'Demons de Khorne' => '#7B0A0A',   // rouge de Khorne 
+        'World Eaters' => '#7B0A0A',  // rouge de Khorne
+        'Space Marines'  => '#1F4E79',  // bleu Space Marines
+    ];
+    return $couleurs[$faction] ?? '#6C757D'; // gris par défaut
+}
 ?>

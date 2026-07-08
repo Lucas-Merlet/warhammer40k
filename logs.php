@@ -1,5 +1,8 @@
 <?php
 
+require_once(__DIR__ . '/head.php');
+requireAdmin();
+
 // VISIONNEUSE DE LOGS - LOGS.PHP
 
 $fichier_logs = 'figurines_logs.json';

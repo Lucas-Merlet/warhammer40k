@@ -71,8 +71,13 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <span class='badge bg-secondary'>" . htmlspecialchars(libelleEtat($figurine['etat'])) . "</span>
                   </p>";
             echo "<p>Ajoutée le : {$figurine['date_ajout']}</p>";
+
+            if (isLoggedIn()) {
             echo $figurine['prix_vente'] ? "<strong style=\"color:#FF0000\">prix : {$figurine['prix_vente']} €</strong>" : "<em>prix non renseigné</em>";
             echo $figurine['cote_marche'] ? "<p>cote marché : {$figurine['cote_marche']} €</p>" : "";
+            } else {
+                echo"<p class='text-muted'><em>Prix réservé aux clients <a href = 'login.php'>connectez-vous</a></em></p>";
+            }
             echo $figurine['pseudo'] ? "<p>vendu par : <strong>" . htmlspecialchars($figurine['pseudo']) . "</strong> (note : {$figurine['note_moyenne']}/5)</p>" : "";
             echo "<p>" . htmlspecialchars($figurine['description']) . "</p>";
             echo "</div>";

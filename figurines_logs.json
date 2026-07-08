@@ -1,0 +1,202 @@
+[
+    {
+        "timestamp": "2026-07-06 12:32:17",
+        "action": "update_figurine_start",
+        "data": {
+            "post_data": []
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko\/20100101 Firefox\/152.0"
+    },
+    {
+        "timestamp": "2026-07-06 12:32:17",
+        "action": "update_figurine_error",
+        "data": {
+            "error": "Validation failed",
+            "post_data": []
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko\/20100101 Firefox\/152.0"
+    },
+    {
+        "timestamp": "2026-07-06 12:51:44",
+        "action": "update_figurine_start",
+        "data": {
+            "post_data": {
+                "id": "6",
+                "nom": "sanguinius",
+                "faction": "Blood Angels",
+                "description": "Sanguinius', 'Blood Angels', 'Primarque des Blood Angels, l'Ange de Baal en pleine envol\u00e9e avec ses ailes d\u00e9ploy\u00e9es. Peinture or et rouge sang niveau exposition, socle sc\u00e9nique repr\u00e9sentant les remparts du Palais Imp\u00e9rial.",
+                "etat": "pro-painted",
+                "prix_vente": "320",
+                "cote_marche": "380"
+            }
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko\/20100101 Firefox\/152.0"
+    },
+    {
+        "timestamp": "2026-07-06 12:51:44",
+        "action": "update_figurine_attempt",
+        "data": {
+            "id": 6,
+            "nom": "sanguinius",
+            "description_length": 228
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko\/20100101 Firefox\/152.0"
+    },
+    {
+        "timestamp": "2026-07-06 12:51:44",
+        "action": "update_figurine_success",
+        "data": {
+            "id": 6,
+            "rows_affected": 0
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko\/20100101 Firefox\/152.0"
+    },
+    {
+        "timestamp": "2026-07-06 12:52:55",
+        "action": "update_figurine_start",
+        "data": {
+            "post_data": {
+                "id": "6",
+                "nom": "sanguinius",
+                "faction": "Blood Angels",
+                "description": "Sanguinius', 'Blood Angels', 'Primarque des Blood Angels, l'Ange de Baal en pleine envol\u00e9e avec ses ailes d\u00e9ploy\u00e9es. Peinture or et rouge sang niveau exposition, socle sc\u00e9nique repr\u00e9sentant les remparts du Palais Imp\u00e9rial.",
+                "etat": "pro-painted",
+                "modifierValeur": "on",
+                "prix_vente": "320",
+                "cote_marche": "380"
+            }
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko\/20100101 Firefox\/152.0"
+    },
+    {
+        "timestamp": "2026-07-06 12:52:55",
+        "action": "update_figurine_attempt",
+        "data": {
+            "id": 6,
+            "nom": "sanguinius",
+            "description_length": 228
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko\/20100101 Firefox\/152.0"
+    },
+    {
+        "timestamp": "2026-07-06 12:52:55",
+        "action": "update_figurine_success",
+        "data": {
+            "id": 6,
+            "rows_affected": 0
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko\/20100101 Firefox\/152.0"
+    },
+    {
+        "timestamp": "2026-07-06 12:52:55",
+        "action": "update_valeur_attempt",
+        "data": {
+            "figurine_id": 6
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko\/20100101 Firefox\/152.0"
+    },
+    {
+        "timestamp": "2026-07-06 12:57:04",
+        "action": "update_figurine_start",
+        "data": {
+            "post_data": {
+                "id": "6",
+                "nom": "sanguinius",
+                "faction": "Blood Angels",
+                "description": "Sanguinius', 'Blood Angels', 'Primarque des Blood Angels, l'Ange de Baal en pleine envol\u00e9e avec ses ailes d\u00e9ploy\u00e9es. Peinture or et rouge sang niveau exposition, socle sc\u00e9nique repr\u00e9sentant les remparts du Palais Imp\u00e9rial.",
+                "etat": "pro-painted",
+                "modifierValeur": "on",
+                "prix_vente": "320",
+                "cote_marche": "380"
+            }
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko\/20100101 Firefox\/152.0"
+    },
+    {
+        "timestamp": "2026-07-06 12:57:04",
+        "action": "update_figurine_attempt",
+        "data": {
+            "id": 6,
+            "nom": "sanguinius",
+            "description_length": 228
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko\/20100101 Firefox\/152.0"
+    },
+    {
+        "timestamp": "2026-07-06 12:57:04",
+        "action": "update_figurine_success",
+        "data": {
+            "id": 6,
+            "rows_affected": 0
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko\/20100101 Firefox\/152.0"
+    },
+    {
+        "timestamp": "2026-07-06 12:57:04",
+        "action": "update_valeur_attempt",
+        "data": {
+            "figurine_id": 6
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko\/20100101 Firefox\/152.0"
+    },
+    {
+        "timestamp": "2026-07-06 12:57:04",
+        "action": "insert_valeur_success",
+        "data": {
+            "figurine_id": 6
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko\/20100101 Firefox\/152.0"
+    },
+    {
+        "timestamp": "2026-07-07 06:55:16",
+        "action": "update_figurine_start",
+        "data": {
+            "post_data": {
+                "id": "6",
+                "nom": "sanguinius",
+                "faction": "Blood Angels",
+                "description": "Sanguinius', 'Blood Angels', 'Primarque des Blood Angels, l'Ange de Baal en pleine envol\u00e9e avec ses ailes d\u00e9ploy\u00e9es. Peinture or et rouge sang niveau exposition, socle sc\u00e9nique repr\u00e9sentant les remparts du Palais Imp\u00e9rial.",
+                "etat": "pro-painted",
+                "prix_vente": "320.00",
+                "cote_marche": "380.00"
+            }
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko\/20100101 Firefox\/152.0"
+    },
+    {
+        "timestamp": "2026-07-07 06:55:16",
+        "action": "update_figurine_attempt",
+        "data": {
+            "id": 6,
+            "nom": "sanguinius",
+            "description_length": 228
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko\/20100101 Firefox\/152.0"
+    },
+    {
+        "timestamp": "2026-07-07 06:55:16",
+        "action": "update_figurine_success",
+        "data": {
+            "id": 6,
+            "rows_affected": 0
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko\/20100101 Firefox\/152.0"
+    }
+]

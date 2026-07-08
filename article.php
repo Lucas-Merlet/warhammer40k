@@ -36,6 +36,7 @@ $figurines = $figurinesStatement->fetchAll();
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1>Blog Warhammer 40k</h1>
             <a href="add.php" class="btn btn-success">+ Ajouter une figurine</a>
+            <a href="logs.php" class="btn btn-outline-secondary">Logs</a>
         </div>
         <hr>
 
@@ -99,7 +100,7 @@ $figurines = $figurinesStatement->fetchAll();
                             <!-- ============================================
                                  BOUTONS D'ACTION AVEC L'ID DANS L'URL
                                  ============================================ -->
-                                 
+
                             <a href="edit.php?id=<?= $figurine['id']; ?>" class="btn btn-warning btn-sm">Modifier</a>
                             <a href="delete.php?id=<?= $figurine['id']; ?>" class="btn btn-danger btn-sm">Supprimer</a>
 

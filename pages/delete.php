@@ -1,22 +1,16 @@
 <?php
+require_once(__DIR__ . '/../common/head.php');
+requireAdmin();
 
-// 1. CONNEXION À LA BASE DE DONNÉES
-
-require_once(__DIR__ . '/connect.php');
-requireAdmin();  
-
-// 2. RÉCUPÉRATION ET VALIDATION DE L'ID
-
+// RÉCUPÉRATION ET VALIDATION DE L'ID
 $getData = $_GET;
 
 if (!isset($getData['id']) || !is_numeric($getData['id'])) {
-    echo ('Il faut un identifiant pour supprimer une figurine.');
+    echo('Il faut un identifiant pour supprimer une figurine.');
     return;
 }
 
-
-// 3. RÉCUPÉRATION DE LA FIGURINE
-
+// RÉCUPÉRATION DE LA FIGURINE
 $retrieveFigurineStatement = $mysqlClient->prepare('SELECT nom, faction FROM figurines WHERE id = :id');
 $retrieveFigurineStatement->execute([
     'id' => (int)$getData['id'],
@@ -24,15 +18,10 @@ $retrieveFigurineStatement->execute([
 $figurine = $retrieveFigurineStatement->fetch(PDO::FETCH_ASSOC);
 
 if (!$figurine) {
-    echo ('Figurine introuvable.');
+    echo('Figurine introuvable.');
     return;
 }
 ?>
-
-<!-- ============================================
-     4. AFFICHAGE DE LA PAGE DE CONFIRMATION
-     ============================================ -->
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,25 +40,21 @@ if (!$figurine) {
                         <h1 class="h4 mb-0">Confirmer la suppression</h1>
                     </div>
                     <div class="card-body text-center">
-
                         <p>Vous êtes sur le point de supprimer :</p>
-
                         <p class="fs-5 fw-bold">
                             <?php echo htmlspecialchars($figurine['nom']); ?>
                             <span class="badge bg-secondary"><?php echo htmlspecialchars($figurine['faction']); ?></span>
                         </p>
-
                         <div class="alert alert-warning" role="alert">
                             Cette action est irréversible. La figurine et son prix seront définitivement supprimés.
                         </div>
-                        <form action="deletepost.php" method="POST">
+                        <form action="index.php?page=deletepost" method="POST">
                             <input type="hidden" id="id" name="id" value="<?php echo $getData['id']; ?>">
                             <div class="d-flex gap-2 justify-content-center">
                                 <button type="submit" class="btn btn-danger">Oui, supprimer</button>
-                                <a class="btn btn-outline-secondary" role="button" href="article.php">Non, RETOUR</a>
+                                <a class="btn btn-outline-secondary" role="button" href="index.php?page=article">Non, RETOUR</a>
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>

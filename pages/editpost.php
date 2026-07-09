@@ -1,21 +1,17 @@
 <?php
-
 // PAGE DE TRAITEMENT DE MODIFICATION - EDITPOST.PHP
-
-
-require_once(__DIR__ . '/connect.php');
-requireAdmin();  
+require_once(__DIR__ . '/../common/head.php');
+requireAdmin();
 
 class JsonLogger
 {
-
     private $logFile;
 
-    public function __construct($filename = 'figurines_logs.json')
+    public function __construct($filename = null)
     {
-
-        $this->logFile = $filename;
-
+        // Le fichier de logs vit dans public/
+        // Chemin DISQUE depuis pages/
+        $this->logFile = $filename ?? __DIR__ . '/../public/figurines_logs.json';
 
         if (!file_exists($this->logFile)) {
             file_put_contents($this->logFile, '[]');
@@ -24,19 +20,16 @@ class JsonLogger
 
     public function log($action, $data = [])
     {
-
         $logEntry = [
-            'timestamp' => date('Y-m-d H:i:s'),     // Date et heure actuelles
-            'action' => $action,                     // Action effectuée (ex: 'update_figurine')
-            'data' => $data,                         // Données associées (tableau)
-            'ip' => $_SERVER['REMOTE_ADDR'] ?? 'unknown',           // Adresse IP du client
-            'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'unknown' // Navigateur utilisé
+            'timestamp' => date('Y-m-d H:i:s'),
+            'action' => $action,
+            'data' => $data,
+            'ip' => $_SERVER['REMOTE_ADDR'] ?? 'unknown',
+            'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'unknown'
         ];
 
         $logs = json_decode(file_get_contents($this->logFile), true) ?? [];
-
         $logs[] = $logEntry;
-
         file_put_contents($this->logFile, json_encode($logs, JSON_PRETTY_PRINT));
     }
 }
@@ -47,49 +40,41 @@ $logger->log('update_figurine_start', [
     'post_data' => $_POST
 ]);
 
-
-
 $postData = $_POST;
 
 if (
-    !isset($postData['id'])                                // L'ID existe ?
-    || !is_numeric($postData['id'])                        // L'ID est un nombre ?
-    || empty($postData['nom'])                             // Le nom n'est pas vide ?
-    || empty($postData['faction'])                         // La faction n'est pas vide ?
-    || empty($postData['description'])                     // La description n'est pas vide ?
-    || empty($postData['etat'])                            // L'état n'est pas vide ?
-    || trim(strip_tags($postData['nom'])) === ''           // Le nom contient du texte réel ?
-    || trim(strip_tags($postData['faction'])) === ''       // La faction contient du texte réel ?
-    || trim(strip_tags($postData['description'])) === ''   // La description contient du texte réel ?
+    !isset($postData['id'])
+    || !is_numeric($postData['id'])
+    || empty($postData['nom'])
+    || empty($postData['faction'])
+    || empty($postData['description'])
+    || empty($postData['etat'])
+    || trim(strip_tags($postData['nom'])) === ''
+    || trim(strip_tags($postData['faction'])) === ''
+    || trim(strip_tags($postData['description'])) === ''
 ) {
-
     $logger->log('update_figurine_error', [
-        'error' => 'Validation failed',  // Type d'erreur
-        'post_data' => $postData         // Données reçues (pour debug)
+        'error' => 'Validation failed',
+        'post_data' => $postData
     ]);
 
     echo 'Il manque des informations pour permettre l\'édition du formulaire.';
     return;
 }
 
-
-$id = (int)$postData['id'];                                  // Conversion forcée en entier
-$nom = trim(strip_tags($postData['nom']));                   // Suppression espaces + balises HTML
-$faction = trim(strip_tags($postData['faction']));           // Suppression espaces + balises HTML
-$description = trim(strip_tags($postData['description']));   // Suppression espaces + balises HTML
-$etat = trim(strip_tags($postData['etat']));                 // Suppression espaces + balises HTML
-
-
+$id = (int)$postData['id'];
+$nom = trim(strip_tags($postData['nom']));
+$faction = trim(strip_tags($postData['faction']));
+$description = trim(strip_tags($postData['description']));
+$etat = trim(strip_tags($postData['etat']));
 
 try {
-    
+
     $logger->log('update_figurine_attempt', [
         'id' => $id,
         'nom' => $nom,
         'description_length' => strlen($description)
     ]);
-
-   
 
     $insertcontenuStatement = $mysqlClient->prepare('UPDATE figurines SET nom = :nom, faction = :faction, description = :description, etat = :etat WHERE id = :id');
 
@@ -101,13 +86,10 @@ try {
         'id' => $id,
     ]);
 
-    
     $logger->log('update_figurine_success', [
         'id' => $id,
         'rows_affected' => $insertcontenuStatement->rowCount()
     ]);
-
-   
 
     if (isset($postData['modifierValeur']) && $postData['modifierValeur'] === 'on') {
 
@@ -127,10 +109,8 @@ try {
             return;
         }
 
-
         $prixVente = trim(strip_tags($postData['prix_vente']));
         $coteMarche = trim(strip_tags($postData['cote_marche']));
-
 
         $sqlQuery = 'SELECT id FROM valeur WHERE figurine_id = :id';
         $valeurStatement = $mysqlClient->prepare($sqlQuery);
@@ -163,7 +143,6 @@ try {
 
         } else {
 
-
             $insertValeur = $mysqlClient->prepare('
                 INSERT INTO valeur (figurine_id, prix_vente, cote_marche, date_estimation)
                 VALUES (:figurine_id, :prix_vente, :cote_marche, :date_estimation)
@@ -193,37 +172,26 @@ try {
     return;
 }
 ?>
-
-
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>figurine <?php echo ($id); ?> modifiée</title>
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-        rel="stylesheet">
+    <title>figurine <?php echo($id); ?> modifiée</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-
 <body class="d-flex flex-column min-vh-100">
     <div class="container">
-
-        <h1>figurine <?php echo ($id); ?> modifiée avec succès !</h1>
-
+        <h1>figurine <?php echo($id); ?> modifiée avec succès !</h1>
         <div class="card">
-
             <div class="card-body">
-                <h5 class="card-title"><?php echo ($nom); ?></h5>
+                <h5 class="card-title"><?php echo($nom); ?></h5>
                 <p class="card-text"><b>Faction : <?php echo $faction; ?> — État : <?php echo $etat; ?></b></p>
                 <p class="card-text"><?php echo $description; ?></p>
             </div>
         </div>
     </div>
-
-    <a class="btn btn-primary" role="button" href="article.php">RETOUR</a>
+    <a class="btn btn-primary" role="button" href="index.php?page=article">RETOUR</a>
 </body>
-
 </html>

@@ -1,12 +1,13 @@
 <?php
+
 // ============================================================
 // TRAITEMENT DE LA CONNEXION
 // ============================================================
-require_once(__DIR__ . '/head.php');
+require_once(__DIR__ . '/../common/head.php');
 
 // 1. Validation des champs
 if (empty($_POST['login']) || empty($_POST['password'])) {
-    header('Location: login.php?error=1');
+    header('Location: index.php?page=login&error=1');
     exit;
 }
 
@@ -20,6 +21,10 @@ $user = $statement->fetch(PDO::FETCH_ASSOC);
 // 3. Vérification du mot de passe avec password_verify
 if ($user && password_verify($_POST['password'], $user['password_hash'])) {
 
+
+    session_regenerate_id(true);
+
+
     // 4. Connexion réussie : le RÔLE entre en session
     $_SESSION['LOGGED_USER'] = [
         'id' => $user['id'],
@@ -27,11 +32,11 @@ if ($user && password_verify($_POST['password'], $user['password_hash'])) {
         'role' => $user['role'],
     ];
 
-    header('Location: article.php');
+    header('Location: index.php?page=article');
     exit;
 
 } else {
     // 5. Échec : message volontairement vague
-    header('Location: login.php?error=1');
+    header('Location: index.php?page=login&error=1');
     exit;
 }

@@ -1,6 +1,7 @@
-<?php 
+<?php
 
-function truncateString($string, $length = 100) {
+function truncateString($string, $length = 100)
+{
     if (strlen($string) > $length) {
         return substr($string, 0, $length) . ' (...)';
     }
@@ -15,9 +16,9 @@ function libelleEtat($etat)
         'peint' => 'Peint',
         'peinture professionnelle' => 'Peinture professionnelle',
     ];
-
     return $libelles[$etat] ?? $etat;
 }
+
 function slugify($text)
 {
     $text = preg_replace('~[^\pL\d]+~u', '-', $text); //remplace tout ce qui n'est pas lettre et chiffre par un tiret
@@ -30,11 +31,11 @@ function slugify($text)
 
 function createFigurineUrl($id, $nom)
 {
-    return 'figurine/' . $id . '-' . slugify($nom) . '.html';
+    // Chemin absolu vers le routeur public + belle URL
+    return '/warhammer40k/public/figurine/' . $id . '-' . slugify($nom) . '.html';
 }
 
 // SYSTÈME DE RÔLES
-
 // L'utilisateur est-il connecté (client OU admin) ?
 function isLoggedIn(): bool
 {
@@ -53,22 +54,20 @@ function isAdmin(): bool
 function requireAdmin(): void
 {
     if (!isAdmin()) {
-        header('Location: article.php');
+        header('Location: index.php?page=article');
         exit;
     }
 }
 
 // DÉCONNEXION
-
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     session_unset();
     session_destroy();
-    header('Location: article.php');
+    header('Location: index.php?page=article');
     exit;
 }
 
 // Fonction couleurFaction : retourne la couleur d'une faction
-
 function couleurFaction($faction)
 {
     $couleurs = [
@@ -77,10 +76,12 @@ function couleurFaction($faction)
         'Death Guard'    => '#4A5D23',   // vert putride
         'Thousand Sons'  => '#0D4F8B',   // bleu et or de Tzeentch
         'Orks'           => '#3D6B1F',   // vert peau d'ork
-        'Demons de Khorne' => '#7B0A0A',   // rouge de Khorne 
-        'World Eaters' => '#7B0A0A',  // rouge de Khorne
-        'Space Marines'  => '#1F4E79',  // bleu Space Marines
+        'Demons de Khorne' => '#7B0A0A', // rouge de Khorne
+        'World Eaters'   => '#7B0A0A',   // rouge de Khorne
+        'Space Marines'  => '#1F4E79',   // bleu Space Marines
+        'Necrons' => '#0A5C36',   // vert gauss Nécrons
+        'Demons de Slaanesh' => '#6B2D5C',   // violet pourpre de Slaanesh
+        'Demons de Tzeentch' => '#1B6CA8',   // bleu changeant de Tzeentch
     ];
     return $couleurs[$faction] ?? '#6C757D'; // gris par défaut
 }
-?>

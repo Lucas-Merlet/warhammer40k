@@ -1,49 +1,34 @@
 <?php
+require_once(__DIR__ . '/../common/head.php');
+requireAdmin();
 
-// 1. CONNEXION À LA BASE DE DONNÉES
-
-require_once(__DIR__ . '/connect.php');
-requireAdmin();  
-
-// 2. RÉCUPÉRATION ET VALIDATION DE L'ID
-
+// RÉCUPÉRATION ET VALIDATION DE L'ID
 $getData = $_GET;
 
 if (!isset($getData['id']) || !is_numeric($getData['id'])) {
-    echo ('Il faut un identifiant de figurine pour la modifier.');
+    echo('Il faut un identifiant de figurine pour la modifier.');
     return;
 }
 
-
-// 3. RÉCUPÉRATION DE LA FIGURINE EN BASE
-
+// RÉCUPÉRATION DE LA FIGURINE EN BASE
 $retrieveFigurineStatement = $mysqlClient->prepare('SELECT nom, faction, description, etat FROM figurines WHERE id = :id');
 $retrieveFigurineStatement->execute([
     'id' => (int)$getData['id'],
 ]);
 $figurine = $retrieveFigurineStatement->fetch(PDO::FETCH_ASSOC);
 
-// ============================================
-// 4. VÉRIFICATION QUE LA FIGURINE EXISTE
-// ============================================
 if (!$figurine) {
-    echo ('Figurine introuvable. Vérifiez l\'ID fourni.');
+    echo('Figurine introuvable. Vérifiez l\'ID fourni.');
     return;
 }
 
-// 5. RÉCUPÉRATION DE LA VALEUR ASSOCIÉE
-
+// RÉCUPÉRATION DE LA VALEUR ASSOCIÉE
 $retrieveValeurStatement = $mysqlClient->prepare('SELECT prix_vente, cote_marche FROM valeur WHERE figurine_id = :id');
 $retrieveValeurStatement->execute([
     'id' => (int)$getData['id'],
 ]);
 $valeur = $retrieveValeurStatement->fetch(PDO::FETCH_ASSOC);
 ?>
-
-<!-- ============================================
-     6. AFFICHAGE DU FORMULAIRE PRÉ-REMPLI
-     ============================================ -->
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,14 +48,9 @@ $valeur = $retrieveValeurStatement->fetch(PDO::FETCH_ASSOC);
                     </div>
                     <div class="card-body">
 
-                        <!-- ============================================
-                             FORMULAIRE DE MODIFICATION
-                             ============================================
-                        -->
+                        <form action="index.php?page=editpost" method="POST">
 
-                        <form action="editpost.php" method="POST">
-
-                            <input type="hidden" id="id" name="id" value="<?php echo ($getData['id']); ?>">
+                            <input type="hidden" id="id" name="id" value="<?php echo($getData['id']); ?>">
 
                             <div class="mb-3">
                                 <label for="nom" class="form-label">Nom</label>
@@ -91,14 +71,9 @@ $valeur = $retrieveValeurStatement->fetch(PDO::FETCH_ASSOC);
                                     <option value="neuf" <?php echo ($figurine['etat'] == 'neuf') ? 'selected' : ''; ?>>Neuf</option>
                                     <option value="monte" <?php echo ($figurine['etat'] == 'monte') ? 'selected' : ''; ?>>Monté</option>
                                     <option value="peint" <?php echo ($figurine['etat'] == 'peint') ? 'selected' : ''; ?>>Peint</option>
-                                    <option value="pro-painted" <?php echo ($figurine['etat'] == 'pro-painted') ? 'selected' : ''; ?>>Peinture-professionnelle</option>
+                                    <option value="peinture professionnelle" <?php echo ($figurine['etat'] == 'peinture professionnelle') ? 'selected' : ''; ?>>Peinture professionnelle</option>
                                 </select>
                             </div>
-
-                            <!-- ============================================
-                                 CHECKBOX + CHAMPS PRIX OPTIONNELS
-                                 ============================================
-                            -->
 
                             <div class="card bg-light border mb-3">
                                 <div class="card-body">
@@ -123,7 +98,7 @@ $valeur = $retrieveValeurStatement->fetch(PDO::FETCH_ASSOC);
 
                             <div class="d-flex gap-2">
                                 <button type="submit" class="btn btn-primary">Envoyer</button>
-                                <a class="btn btn-outline-secondary" role="button" href="article.php">RETOUR</a>
+                                <a class="btn btn-outline-secondary" role="button" href="index.php?page=article">RETOUR</a>
                             </div>
                         </form>
                     </div>
@@ -133,7 +108,7 @@ $valeur = $retrieveValeurStatement->fetch(PDO::FETCH_ASSOC);
     </div>
     <script>
     document.getElementById('modifierValeur').addEventListener('change', function() {
-        const detailValeur = document.getElementById('detailsValeur');
+        const detailsValeur = document.getElementById('detailsValeur');
         detailsValeur.style.display = this.checked ? 'block' : 'none';
     });
     </script>

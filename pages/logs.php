@@ -1,20 +1,18 @@
 <?php
-
-require_once(__DIR__ . '/head.php');
+require_once(__DIR__ . '/../common/head.php');
 requireAdmin();
 
 // VISIONNEUSE DE LOGS - LOGS.PHP
-
-$fichier_logs = 'figurines_logs.json';
+// Le fichier JSON vit dans public/ : chemin DISQUE depuis pages/
+$fichier_logs = __DIR__ . '/../public/figurines_logs.json';
 
 // LECTURE SÉCURISÉE DU FICHIER
-
 if (!file_exists($fichier_logs)) {
-    die("Le fichier $fichier_logs n'existe pas.");
+    die("Le fichier de logs n'existe pas.");
 }
 $contenu_json = file_get_contents($fichier_logs);
 if ($contenu_json === false) {
-    die("Impossible de lire le fichier $fichier_logs.");
+    die("Impossible de lire le fichier de logs.");
 }
 $logs = json_decode($contenu_json, true);
 if ($logs === null) {
@@ -22,7 +20,6 @@ if ($logs === null) {
 }
 
 // FONCTION D'AFFICHAGE D'UNE ENTRÉE DE LOG
-
 function afficher_log($log)
 {
     echo "<div class='card mb-3'>";
@@ -34,7 +31,6 @@ function afficher_log($log)
     echo "Navigateur : " . htmlspecialchars($log['user_agent']);
     echo "</p>";
     echo "<pre class='bg-light p-2 rounded small'>" . htmlspecialchars(json_encode($log['data'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)) . "</pre>";
-
     echo "</div>";
     echo "</div>";
 }
@@ -49,21 +45,17 @@ function afficher_log($log)
 </head>
 <body class="bg-light">
     <div class="container my-5">
-
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1>Journal des modifications</h1>
-            <a href="article.php" class="btn btn-outline-secondary">RETOUR</a>
+            <a href="index.php?page=article" class="btn btn-outline-secondary">RETOUR</a>
         </div>
-
         <p class="text-muted"><?= count($logs); ?> entrée(s) enregistrée(s)</p>
         <hr>
-
         <?php
         foreach (array_reverse($logs) as $log) {
             afficher_log($log);
         }
-        ?>
-
+?>
     </div>
 </body>
 </html>

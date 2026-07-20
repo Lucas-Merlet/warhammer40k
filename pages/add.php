@@ -1,6 +1,6 @@
 <?php
 require_once(__DIR__ . '/../common/head.php');
-requireAdmin();
+requireGestion();
 ?>
 <!DOCTYPE html>
 <html>

@@ -1,7 +1,7 @@
 <?php
 // 1. CHARGEMENT DES COMMUNS + PROTECTION ADMIN
 require_once(__DIR__ . '/../common/head.php');
-requireAdmin();
+requireGestion();
 
 // 2. RÉCUPÉRATION DES DONNÉES DU FORMULAIRE
 $postData = $_POST;

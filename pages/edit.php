@@ -1,6 +1,6 @@
 <?php
 require_once(__DIR__ . '/../common/head.php');
-requireAdmin();
+requireGestion();
 
 // RÉCUPÉRATION ET VALIDATION DE L'ID
 $getData = $_GET;

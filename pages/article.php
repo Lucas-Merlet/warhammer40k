@@ -47,9 +47,10 @@
 
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1>Nos figurines</h1>
-            <?php if (isAdmin()) : ?>
-                <a href="index.php?page=add" class="btn btn-success">+ Ajouter une figurine</a>
-            <?php endif; ?>
+            <!-- Bouton Ajouter en haut : vendeur + admin -->
+                <?php if (peutGerer()) : ?>
+                    <a href="index.php?page=add" class="btn btn-success">+ Ajouter une figurine</a>
+                <?php endif; ?>
         </div>
 
         <p class="text-muted mb-4"><?= count($figurines); ?> figurine(s) affichée(s)</p>
@@ -127,9 +128,11 @@
                             <!-- ============================================
                                  BOUTONS D'ADMINISTRATION : admins seulement
                                  ============================================ -->
-
-                            <?php if (isAdmin()) : ?>
+                            <?php if (peutGerer()) : ?>
                                 <a href="index.php?page=edit&id=<?= $figurine['id']; ?>" class="btn btn-warning btn-sm">Modifier</a>
+                            <?php endif; ?>
+                            
+                            <?php if (isAdmin()) : ?>
                                 <a href="index.php?page=delete&id=<?= $figurine['id']; ?>" class="btn btn-danger btn-sm">Supprimer</a>
                             <?php endif; ?>
 

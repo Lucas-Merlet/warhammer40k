@@ -1,7 +1,7 @@
 <?php
 // PAGE DE TRAITEMENT DE MODIFICATION - EDITPOST.PHP
 require_once(__DIR__ . '/../common/head.php');
-requireAdmin();
+requireGestion();
 
 class JsonLogger
 {

@@ -17,10 +17,14 @@
     <div class="col-8 text-end">
         <ul class="list-inline">
             <li class="list-inline-item"><a href="index.php?page=article">Accueil</a></li>
-            <?php if (isAdmin()) : ?>
+            <?php if (peutGerer()) : ?>
                 <li class="list-inline-item"><a href="index.php?page=add">Ajouter</a></li>
-                <li class="list-inline-item"><a href="index.php?page=logs">Logs</a></li>
             <?php endif; ?>
+            <?php if (isAdmin()) : ?>
+                <li class="list-inline-item"><a href="index.php?page=logs">Logs</a></li>
+                <li class="list-inline-item"><a href="index.php?page=users">Utilisateurs</a></li>
+            <?php endif; ?>
+
             <?php if (!isLoggedIn()) : ?>
                 <li class="list-inline-item"><a href="index.php?page=login">Connexion</a></li>
                 <li class="list-inline-item"><a href="index.php?page=register">Inscription</a></li>

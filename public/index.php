@@ -3,6 +3,7 @@
 // 1. CHARGEMENT DES COMMUNS
 
 require_once(__DIR__ . '/../common/head.php');
+require_once('../common/config.php');
 
 // 2. LISTE DES PAGES AUTORISÉES
 
@@ -14,6 +15,7 @@ $pagesAutorisees = [
     'login', 'loginpost',
     'register', 'registerpost',
     'logs',
+    'users', 'userspost',
 ];
 
 // 3. QUELLE PAGE AFFICHER ?

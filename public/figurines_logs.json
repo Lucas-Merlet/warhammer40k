@@ -256,5 +256,43 @@
         },
         "ip": "::1",
         "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko\/20100101 Firefox\/152.0"
+    },
+    {
+        "timestamp": "2026-07-21 08:22:05",
+        "action": "update_figurine_start",
+        "data": {
+            "post_data": {
+                "id": "9",
+                "nom": "Angron",
+                "faction": "World Eaters",
+                "description": "Primark world eaters na\u00eet de la violence.",
+                "etat": "peint",
+                "prix_vente": "50.00",
+                "cote_marche": "70.00"
+            }
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/150.0.0.0 Safari\/537.36"
+    },
+    {
+        "timestamp": "2026-07-21 08:22:05",
+        "action": "update_figurine_attempt",
+        "data": {
+            "id": 9,
+            "nom": "Angron",
+            "description_length": 42
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/150.0.0.0 Safari\/537.36"
+    },
+    {
+        "timestamp": "2026-07-21 08:22:06",
+        "action": "update_figurine_success",
+        "data": {
+            "id": 9,
+            "rows_affected": 1
+        },
+        "ip": "::1",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/150.0.0.0 Safari\/537.36"
     }
 ]

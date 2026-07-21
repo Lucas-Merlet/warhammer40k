@@ -11,15 +11,13 @@ if (!isset($postData['id']) || !is_numeric($postData['id'])) {
     return;
 }
 
-// SUPPRESSION EN BASE DE DONNÉES
-// D'abord valeur (clé étrangère), puis la figurine
-$deleteValeurStatement = $mysqlClient->prepare('DELETE FROM valeur WHERE figurine_id = :id');
-$deleteValeurStatement->execute([
-    'id' => (int)$postData['id'],
-]);
-
-$deleteFigurineStatement = $mysqlClient->prepare('DELETE FROM figurines WHERE id = :id');
-$deleteFigurineStatement->execute([
+// ============================================
+// SOFT DELETE : on MARQUE la figurine comme supprimée
+// au lieu de l'effacer. NOW() = date et heure actuelles
+// La figurine et son prix restent en base, récupérables
+// ============================================
+$statement = $mysqlClient->prepare('UPDATE figurines SET deleted_at = NOW() WHERE id = :id');
+$statement->execute([
     'id' => (int)$postData['id'],
 ]);
 ?>
@@ -32,7 +30,10 @@ $deleteFigurineStatement->execute([
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <p>C'est supprimé !</p> <br>
-    <a class="btn btn-primary" role="button" href="index.php?page=article">RETOUR</a>
+    <div class="container my-5">
+        <div class="alert alert-success">La figurine a été mise à la corbeille.</div>
+        <a class="btn btn-primary" role="button" href="index.php?page=article">Retour au catalogue</a>
+        <a class="btn btn-outline-secondary" role="button" href="index.php?page=corbeille">Voir la corbeille</a>
+    </div>
 </body>
 </html>

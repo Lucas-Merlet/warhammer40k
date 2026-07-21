@@ -1,0 +1,8 @@
+# Configuration sensible : JAMAIS sur Git
+.env
+
+# Fichiers de logs
+public/figurines_logs.json
+
+# Scripts temporaires
+fix*.php

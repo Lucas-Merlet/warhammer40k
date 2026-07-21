@@ -23,6 +23,7 @@
             <?php if (isAdmin()) : ?>
                 <li class="list-inline-item"><a href="index.php?page=logs">Logs</a></li>
                 <li class="list-inline-item"><a href="index.php?page=users">Utilisateurs</a></li>
+                <li class="list-inline-item"><a href="index.php?page=corbeille">Corbeille</a></li>
             <?php endif; ?>
 
             <?php if (!isLoggedIn()) : ?>

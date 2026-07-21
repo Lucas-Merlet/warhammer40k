@@ -1,15 +1,12 @@
 <?php
+
+require_once(__DIR__ . '/env.php');
+chargerEnv(__DIR__ . '/../.env');
+
 try {
-    $mysqlClient = new PDO(
-        'mysql:host=localhost;dbname=warhammer_shop;charset=utf8',  
-        'root',                                                   
-        ''                                                        
-    );
-    $mysqlClient->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $dsn = 'mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'] . ';charset=' . $_ENV['DB_CHARSET'];
 
-} catch (Exception $error) {
-    
-    die('Erreur de connexion à la base de données : ' . $error->getMessage());
+    $mysqlClient = new PDO($dsn, $_ENV['DB_USER'], $_ENV['DB_PASS']);
+} catch (Exception $e) {
+    die ('Erreur de connexion à la base de données : ');
 }
-
-?>

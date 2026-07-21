@@ -16,6 +16,7 @@ $pagesAutorisees = [
     'register', 'registerpost',
     'logs',
     'users', 'userspost',
+    'corbeille', 'restaurepost',
 ];
 
 // 3. QUELLE PAGE AFFICHER ?
